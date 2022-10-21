@@ -8,13 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
     private final CustomersService customersService;
     @PostMapping()
-    public ResponseEntity<?> register(@RequestBody CustomerRegisterRequest registerRequest){
+    public ResponseEntity<?> register(@Valid @RequestBody CustomerRegisterRequest registerRequest){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(customersService.register(registerRequest));
     }

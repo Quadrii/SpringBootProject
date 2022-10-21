@@ -2,7 +2,9 @@ package africa.semicolon.lumExpress.services;
 
 import africa.semicolon.lumExpress.data.dto.request.CustomerRegisterRequest;
 import africa.semicolon.lumExpress.data.dto.request.LoginRequest;
+import africa.semicolon.lumExpress.data.dto.request.UpdateCustomerProfile;
 import africa.semicolon.lumExpress.data.dto.response.CustomerRegisterResponse;
+import africa.semicolon.lumExpress.util.LumExpressUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +43,20 @@ class CustomerServiceImplTest {
 
 
     @Test
-    void completeProfile() {
+    void completeProfileTest() {
+        CustomerRegisterResponse customerRegisterResponse = customersService.register(request);
+        assertThat(customerRegisterResponse).isNotNull();
+        UpdateCustomerProfile updateCustomerProfile = UpdateCustomerProfile.builder()
+                .customerId((long) customerRegisterResponse.getUserId())
+                .imgUrl(LumExpressUtil.getMockCloudinaryImgUrl())
+                .lastName("testLastname")
+                .phoneNumber("93736468389")
+                .city("yaba")
+                .street("sabo")
+                .buildingNumber(Long.valueOf("3435"))
+                .build();
+        var updateResponse = customersService.completeProfile(updateCustomerProfile);
+        assertThat(updateResponse).isNotNull();
+        assertThat(updateResponse.contains("success")).isTrue();
     }
 }

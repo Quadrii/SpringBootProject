@@ -13,4 +13,8 @@ public class UpdateCustomerProfile {
     private String lastName;
     private String phoneNumber;
     private String imgUrl;
+    private String street;
+    private String city;
+    private Long buildingNumber;
+    private String state;
 }
